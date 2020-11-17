@@ -11,7 +11,7 @@
 | name                          | string | null: false |
 | family_name_pronunciation_key | string | null: false |
 | name_pronunciation_key        | string | null: false |
-| Birthday                      | date   | null: false |
+| birthday                      | date   | null: false |
 ### Association
 
 - has_many : items
@@ -35,7 +35,7 @@
 ### Association
 
 - belongs_to :user
-- has_one :buyers
+- has_one :buyer
 
 ## buyers テーブル
 
