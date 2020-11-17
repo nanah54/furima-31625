@@ -29,7 +29,6 @@
 |shipment_source_id | integer  | null: false                   |
 |date_of_shipment_id| integer  | null: false                   |
 | concept           |  text    | null: false                   |
-| image             |ActiveStorageで実装                        |
 | user              |references｜null: false, foreign_key: true|
 
 ### Association
