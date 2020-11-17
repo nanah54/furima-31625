@@ -8,9 +8,9 @@
 | encrypted_password            | string | null: false |
 | nickname                      | string | null: false |
 | family_name                   | string | null: false |
-| name                          | string | null: false |
+| first_name                    | string | null: false |
 | family_name_pronunciation_key | string | null: false |
-| name_pronunciation_key        | string | null: false |
+| first_name_pronunciation_key  | string | null: false |
 | birthday                      | date   | null: false |
 ### Association
 
