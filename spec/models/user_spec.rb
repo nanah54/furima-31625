@@ -70,6 +70,21 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Family name can't be blank")
       end
+      it 'first_nameが空だと登録できない' do
+        @user.first_name = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name can't be blank")
+      end
+      it 'family_name_pronunciation_keyが空だと登録できない' do
+        @user.family_name_pronunciation_key = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Family name pronunciation key can't be blank")
+      end
+      it 'first_name_pronunciation_keyが空だと登録できない' do
+        @user.first_name_pronunciation_key = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name pronunciation key can't be blank")
+      end
       it 'family_nameは、全角（漢字・ひらがな・カタカナ）での入力でないと登録できない' do
         @user.family_name = 'Ａ'
         @user.valid?
