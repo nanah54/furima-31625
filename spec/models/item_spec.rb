@@ -39,28 +39,28 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Concept can't be blank")
       end
-      it 'category_idが空だと登録できない' do
+      it 'category_idが未選択（1）だと登録できない' do
         @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Category must be other than 1')
       end
-      it 'usage_status_idが空では登録できない' do
+      it 'usage_status_idが未選択（1）だと登録できない' do
         @item.usage_status_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Usage status must be other than 1')
       end
 
-      it 'postage_idに＠が空では登録できない' do
+      it 'postage_idに＠が未選択（1）だと登録できない' do
         @item.postage_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Postage must be other than 1')
       end
-      it 'shipment_source_idに＠が空では登録できない' do
+      it 'shipment_source_idに＠が未選択（1）だと登録できない' do
         @item.shipment_source_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Shipment source must be other than 1')
       end
-      it 'date_of_shipment_idに＠が空では登録できない' do
+      it 'date_of_shipment_idに未選択（1）だと登録できない' do
         @item.date_of_shipment_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Date of shipment must be other than 1')
@@ -76,7 +76,10 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Price 半角数字を使用してください')
       end
       it 'priceの範囲が、¥300~¥9,999,999の間でないと登録できない' do
-        @item.price = '200'
+        @item.price = '299'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price 値段は300~9.999.999の間でお願いします')
+        @item.price = '10000000'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price 値段は300~9.999.999の間でお願いします')
       end
