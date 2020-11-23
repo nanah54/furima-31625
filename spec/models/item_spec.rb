@@ -78,7 +78,6 @@ RSpec.describe Item, type: :model do
       it 'priceの範囲が、¥300~¥9,999,999の間でないと登録できない' do
         @item.price = '200'
         @item.valid?
-        binding.pry
         expect(@item.errors.full_messages).to include("Price 値段は300~9.999.999の間でお願いします")
       end
     end
