@@ -9,15 +9,15 @@ class Item < ApplicationRecord
   belongs_to :postage
   belongs_to :shipment_source
   belongs_to :date_of_shipment
-  
-  with_options  numericality: { other_than: 1 }  do
+
+  with_options numericality: { other_than: 1 } do
     validates :category_id
     validates :usage_status_id
     validates :postage_id
     validates :shipment_source_id
     validates :date_of_shipment_id
   end
-  with_options presence: true  do
+  with_options presence: true do
     validates :price
     validates :image
     validates :concept
