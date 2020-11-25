@@ -6,6 +6,30 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    @item = Item.find(params[:id])
+    if user_signed_in? && current_user.id != @item.user_id
+     redirect_to root_path
+    end
+    if user_signed_in? 
+    else
+      redirect_to user_session_path
+    end
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    @item.update(item_params)
+    if @item.valid?
+      @item.save
+      redirect_to root_path
+    else
+      render :edit
+    end
+    
+  end
+
+  def destroy
+
   end
 
   def new
