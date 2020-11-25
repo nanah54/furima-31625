@@ -7,13 +7,12 @@ class ItemsController < ApplicationController
   end
 
   def edit
-   redirect_to root_path if current_user.id != @item.user_id
+    redirect_to root_path if current_user.id != @item.user_id
   end
 
   def update
-    
-    if  @item.update(item_params)
-     redirect_to root_path
+    if @item.update(item_params)
+      redirect_to root_path
     else
       render :edit
     end
@@ -23,11 +22,10 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if user_signed_in? && current_user.id == @item.user_id 
-     @item.destroy
-     redirect_to root_path
+    if user_signed_in? && current_user.id == @item.user_id
+      @item.destroy
+      redirect_to root_path
     end
-   
   end
 
   def new
