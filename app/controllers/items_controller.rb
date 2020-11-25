@@ -7,10 +7,8 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
-    if user_signed_in? && current_user.id != @item.user_id
-     redirect_to root_path
-    end
-    if user_signed_in? 
+    redirect_to root_path if user_signed_in? && current_user.id != @item.user_id
+    if user_signed_in?
     else
       redirect_to user_session_path
     end
@@ -25,11 +23,9 @@ class ItemsController < ApplicationController
     else
       render :edit
     end
-    
   end
 
   def destroy
-
   end
 
   def new
