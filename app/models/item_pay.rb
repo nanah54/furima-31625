@@ -1,6 +1,8 @@
 class ItemPay
   include ActiveModel::Model
+  attr_accessor   :token
   attr_accessor   :postal_code , :prefecture_id , :municipality , :address,  :building_name,:phone_number, :user_id, :item_id
+  
 
   # ここにバリデーションの処理を書く
   with_options presence: true do
@@ -8,6 +10,9 @@ class ItemPay
     validates :municipality, format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "is invalid. Input full-width characters."}
     validates :address, format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "is invalid. Input full-width characters."}
     validates :phone_number, format:{with: /\A\d{10,11}\z/, message: "is invalid.  Input half-width character & not hyphen(-)"}
+
+    validates :token
+
   end
   validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
 
