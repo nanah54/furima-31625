@@ -10,6 +10,10 @@ RSpec.describe ItemPay, type: :model do
       it 'postal_codeとprefecture_id, municipality ,address, phone_number,tokenが存在すれば登録できる' do
         expect(@item_pay).to be_valid
       end
+      it 'building_name は空でも保存ができる' do
+        @item_pay.building_name = ''
+        expect(@item_pay).to be_valid
+      end
     end
 
     context '商品購入がうまくいかない時' do
