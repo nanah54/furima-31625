@@ -1,14 +1,20 @@
 class BuyersController < ApplicationController
+  before_action :set_item, only: [:index, :create]
   def index
-    @item = Item.find(params[:item_id])
+    if current_user.id != @item.user_id
+    else
+    redirect_to root_path 
+    end
+    if @item.buyer.present?
+     redirect_to root_path
+    end
     @item_pay = ItemPay.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @item_pay = ItemPay.new(pay_params)
     if @item_pay.valid?
-      Payjp.api_key = 'sk_test_6ec3c4aa87d530682685c9e9'
+      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
       Payjp::Charge.create(
         amount: @item.price,  # 商品の値段
         card: pay_params[:token], # カードトークン
@@ -26,4 +32,8 @@ class BuyersController < ApplicationController
   def pay_params
     params.require(:item_pay).permit(:postal_code, :prefecture_id, :municipality, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end  
 end

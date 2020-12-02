@@ -5,14 +5,14 @@ RSpec.describe ItemPay, type: :model do
     @item_pay = FactoryBot.build(:item_pay)
   end
 
-  describe 'ユーザー新規登録' do
-    context '新規登録がうまくいくとき' do
+  describe '商品購入' do
+    context '商品購入がうまくいく時' do
       it 'postal_codeとprefecture_id, municipality ,address, phone_number,tokenが存在すれば登録できる' do
         expect(@item_pay).to be_valid
       end
     end
 
-    context '新規登録がうまくいかないとき' do
+    context '商品購入がうまくいかない時' do
       it 'tokenが空では登録できないこと' do
         @item_pay.token = nil
         @item_pay.valid?
@@ -20,6 +20,11 @@ RSpec.describe ItemPay, type: :model do
       end
       it 'postal_codeが空だと登録できない' do
         @item_pay.postal_code = ''
+        @item_pay.valid?
+        expect(@item_pay.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
+      end
+      it 'postal_codeが-(ハイフン)なしだと登録できない' do
+        @item_pay.postal_code = '1234567'
         @item_pay.valid?
         expect(@item_pay.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
@@ -42,6 +47,11 @@ RSpec.describe ItemPay, type: :model do
         @item_pay.phone_number = ''
         @item_pay.valid?
         expect(@item_pay.errors.full_messages).to include("Phone number can't be blank", 'Phone number is invalid.  Input half-width character & not hyphen(-)')
+      end
+      it 'phone_numberが１２桁以上だと登録できない' do
+        @item_pay.phone_number = '080123456789'
+        @item_pay.valid?
+        expect(@item_pay.errors.full_messages).to include("Phone number is invalid.  Input half-width character & not hyphen(-)")
       end
     end
   end
