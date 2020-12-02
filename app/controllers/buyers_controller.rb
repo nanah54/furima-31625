@@ -9,12 +9,7 @@ class BuyersController < ApplicationController
   def create
     @item_pay = ItemPay.new(pay_params)
     if @item_pay.valid?
-      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-      Payjp::Charge.create(
-        amount: @item.price,  # 商品の値段
-        card: pay_params[:token], # カードトークン
-        currency: 'jpy'                 # 通貨の種類（日本円）
-      )
+      payjps
       @item_pay.save
       redirect_to root_path
     else
@@ -31,4 +26,13 @@ class BuyersController < ApplicationController
   def set_item
     @item = Item.find(params[:item_id])
   end  
+
+  def payjps
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,  # 商品の値段
+      card: pay_params[:token], # カードトークン
+      currency: 'jpy'                 # 通貨の種類（日本円）
+    )
+  end
 end
