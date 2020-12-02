@@ -37,6 +37,11 @@ RSpec.describe ItemPay, type: :model do
         @item_pay.valid?
         expect(@item_pay.errors.full_messages).to include("Prefecture can't be blank")
       end
+      it 'prefecture_idがnilだと登録できない' do
+        @item_pay.prefecture_id = 'nil'
+        @item_pay.valid?
+        expect(@item_pay.errors.full_messages).to include("Prefecture can't be blank")
+      end
       it 'municipalityが空だと登録できない' do
         @item_pay.municipality = ''
         @item_pay.valid?
