@@ -1,13 +1,8 @@
 class BuyersController < ApplicationController
   before_action :set_item, only: [:index, :create]
   def index
-    if current_user.id != @item.user_id
-    else
-    redirect_to root_path 
-    end
-    if @item.buyer.present?
-     redirect_to root_path
-    end
+    if current_user.id != @item.user_id || @item.buyer.present?
+      redirect_to root_path
     @item_pay = ItemPay.new
   end
 

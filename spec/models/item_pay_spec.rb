@@ -57,6 +57,11 @@ RSpec.describe ItemPay, type: :model do
         @item_pay.valid?
         expect(@item_pay.errors.full_messages).to include("Phone number is invalid.  Input half-width character & not hyphen(-)")
       end
+      it 'phone_numberにハイフンが入っている場合は登録できない' do
+        @item_pay.phone_number = '080-12345678'
+        @item_pay.valid?
+        expect(@item_pay.errors.full_messages).to include("Phone number is invalid.  Input half-width character & not hyphen(-)")
+      end
     end
   end
 end
