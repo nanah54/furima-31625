@@ -5,5 +5,4 @@ class ShippingAddress < ApplicationRecord
   belongs_to :prefecture
 
 
-  end
 end
