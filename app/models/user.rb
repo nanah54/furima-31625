@@ -12,10 +12,9 @@ class User < ApplicationRecord
     validates :first_name_pronunciation_key
     validates :birthday
   end
+  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
+  validates_format_of :password, with: PASSWORD_REGEX, message: '6文字以上の半角英数字混合にしてください'
 
-  with_options presence: true, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i, message: '半角英数字混合にしてください' } do
-  validates :encrypted_password
-  end
   with_options presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: '全角文字を使用してください' } do
     validates :family_name
     validates :first_name

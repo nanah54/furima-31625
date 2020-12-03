@@ -2,9 +2,7 @@ class BuyersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
   def index
-    if current_user.id == @item.user_id || @item.buyer != nil
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id == @item.user_id || !@item.buyer.nil?
     @item_pay = ItemPay.new
   end
 
@@ -27,10 +25,10 @@ class BuyersController < ApplicationController
 
   def set_item
     @item = Item.find(params[:item_id])
-  end  
+  end
 
   def payjps
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,  # 商品の値段
       card: pay_params[:token], # カードトークン
