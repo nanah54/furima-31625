@@ -3,6 +3,16 @@ class Item < ApplicationRecord
   has_one :buyer
   has_one_attached :image
 
+
+  def self.search(search)
+    if search != ""
+      Item.where('title LIKE (?)', "%#{search}%" )
+    else
+      Item.all
+    end
+  end
+
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :usage_status
