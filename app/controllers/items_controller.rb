@@ -21,6 +21,12 @@ class ItemsController < ApplicationController
   def show
   end
 
+
+
+  def search
+    @item = Item.search(params[:keyword])
+  end
+
   def destroy
     if current_user.id == @item.user_id
       @item.destroy
